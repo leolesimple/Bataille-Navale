@@ -1,0 +1,5 @@
+{
+    "python.analysis.typeCheckingMode": "off",
+    "git.ignoreLimitWarning": true,
+    "git.enabled": true
+}
