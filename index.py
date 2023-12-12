@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
+#blop 
 def get_utilisateurs():
     conn = sqlite3.connect('general.db')
     cursor = conn.cursor()
