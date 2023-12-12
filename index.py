@@ -9,18 +9,25 @@ def creation_bateau(col, li, longueur, num, etape):
         if 8 - col >= longueur :
             col += 1
     for i in range(longueur):
-
+        return 0
 
 def nombre_bateaux():
+    return 0
 
 def localisation_bateaux():
+    return 0
 
 def afficher_carte():
+    return 0
 
 def tirer():
+    return 0
 
 def bateau_touche():
+    return 0
 
 def vie_bateau():
+    return 0
 
 def bateaux_restants():
+    return 0
