@@ -3,10 +3,11 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
+msg = 0
 def get_utilisateurs():
     conn = sqlite3.connect('general.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM utilisateurs")
+    cursor.execute("SELECT * FROM joueurs")
     utilisateurs = cursor.fetchall()
     conn.close()
     return utilisateurs
@@ -26,7 +27,7 @@ bg = PhotoImage(file="img/background-sea-water.png")
 label1 = Label(root, image=bg)
 label1.place(x=0, y=0)
 
-label2 = Label(root, text="Bataille Navale", bg="#88cffa", font=("Parisine", 70))
+label2 = Label(root, text="Bataille Navale", bg="#88cffa", font=("Achemine", 70))
 label2.pack(pady=50)
 
 frame1 = Frame(root, bg="#88cffa")
@@ -37,6 +38,22 @@ tree = ttk.Treeview(frame1, columns=columns, show="headings")
 for col in columns:
     tree.heading(col, text=col)
 tree.pack()
+
+def creation_bateau(col, li, longueur, num, etape):
+    tree.heading(0, text=etape)
+    tree.pack()
+
+exit_button = ttk.Button(
+    root,
+    text='A8',
+    command=lambda: creation_bateau(4, 8, 3, 1, 1)
+)
+
+exit_button.pack(
+    ipadx=5,
+    ipady=5,
+    expand=True
+)
 
 afficher_utilisateurs()
 
