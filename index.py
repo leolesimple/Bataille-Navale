@@ -3,19 +3,6 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
-def create_database():
-    conn = sqlite3.connect('general.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS utilisateurs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom TEXT,
-            age INTEGER
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
 def get_utilisateurs():
     conn = sqlite3.connect('general.db')
     cursor = conn.cursor()
