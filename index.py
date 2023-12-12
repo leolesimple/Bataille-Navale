@@ -3,9 +3,8 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
-#La base de données et les données de celle-ci ne sont que temporaires !
 def create_database():
-    conn = sqlite3.connect('ma_base_de_donnees.db')
+    conn = sqlite3.connect('general.db')
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS utilisateurs (
@@ -18,7 +17,7 @@ def create_database():
     conn.close()
 
 def get_utilisateurs():
-    conn = sqlite3.connect('ma_base_de_donnees.db')
+    conn = sqlite3.connect('general.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM utilisateurs")
     utilisateurs = cursor.fetchall()
@@ -40,8 +39,7 @@ bg = PhotoImage(file="img/background-sea-water.png")
 label1 = Label(root, image=bg)
 label1.place(x=0, y=0)
 
-# Modification de la taille et de la police du label "Welcome"
-label2 = Label(root, text="Welcome", bg="#88cffa", font=("Parisine", 70))
+label2 = Label(root, text="Bataille Navale", bg="#88cffa", font=("Parisine", 70))
 label2.pack(pady=50)
 
 frame1 = Frame(root, bg="#88cffa")
