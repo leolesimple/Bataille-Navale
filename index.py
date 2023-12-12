@@ -3,49 +3,24 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
-#blop 
-def get_utilisateurs():
-    conn = sqlite3.connect('general.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM utilisateurs")
-    utilisateurs = cursor.fetchall()
-    conn.close()
-    return utilisateurs
+def creation_bateau(col, li, longueur, num, etape):
+    b = num
+    if etape % 2 == 0 :
+        if 8 - col >= longueur :
+            col += 1
+    for i in range(longueur):
 
-def afficher_utilisateurs():
-    utilisateurs = get_utilisateurs()
-    for utilisateur in utilisateurs:
-        tree.insert("", "end", values=(utilisateur[0], utilisateur[1], utilisateur[2]))
 
-root = Tk()
-root.title("Bataille Navale | NSI")
-root.geometry("1280x854")
-root.resizable(False, False)
+def nombre_bateaux():
 
-bg = PhotoImage(file="img/background-sea-water.png")
+def localisation_bateaux():
 
-label1 = Label(root, image=bg)
-label1.place(x=0, y=0)
+def afficher_carte():
 
-label2 = Label(root, text="Bataille Navale", bg="#88cffa", font=("Parisine", 70))
-label2.pack(pady=50)
+def tirer():
 
-frame1 = Frame(root, bg="#88cffa")
-frame1.pack(pady=20)
+def bateau_touche():
 
-columns = ("ID", "Nom", "Age")
-tree = ttk.Treeview(frame1, columns=columns, show="headings")
-for col in columns:
-    tree.heading(col, text=col)
-tree.pack()
+def vie_bateau():
 
-afficher_utilisateurs()
-
-root.update_idletasks()
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-x = (screen_width) // 4
-y = (screen_height) // 4
-root.geometry("+{}+{}".format(x, y))
-
-root.mainloop()
+def bateaux_restants():
