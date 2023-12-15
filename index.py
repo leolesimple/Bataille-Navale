@@ -40,8 +40,7 @@ for col in columns:
 tree.pack()
 
 def creation_bateau(col, li, longueur, num, etape):
-    tree.heading(0, text=etape)
-    tree.pack()
+    print(col, li, longueur, num, etape)
 
 exit_button = ttk.Button(
     root,
