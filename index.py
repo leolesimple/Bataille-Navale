@@ -3,17 +3,32 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import sqlite3
 
-def creation_bateau(col, li, longueur, num, etape):
+
+
+col = [
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ]
+
+
+def creation_bateau(num_col, li, longueur, num, etape):
     b = num
+    liste_bateau = []
     if etape % 2 == 0 :
         if 8 - col >= longueur :
-            for i in range(longueur):
-                
+            for i in range(longueur - 1):
+                col[num_col[li]] = True
                 col += 1
         else :
-            for i in range(longueur):
-
+            for i in range(longueur - 1):
+                col[num_col[li]] = True
                 col -= 1
+    return col
 
 def nombre_bateaux():
      return 0
