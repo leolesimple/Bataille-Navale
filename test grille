@@ -51,3 +51,16 @@ TexteC.grid(row=1, column=3)
 Can.bind("<Button-1>",donne_position)
   
 fenetre.mainloop()
+
+
+
+
+def jouer(event):
+    global trouve
+    [i,j]=correspond(event.x,event.y)
+    if i in range(9) and j in range (9):   # on ne fait rien si le click est hors grille
+        Can.create_rectangle(x0 +case*j,y0+case*i,x0 +case*(j+1),y0+case*(i+1),fill='blue')
+        TexteC.insert(END,"clic detecte en case : " + str(i+1) + " et case : " + str(j+1))
+
+	
+from random import randrange<br>nb = randrange(b+1-a) + a
