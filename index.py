@@ -39,8 +39,8 @@ for col in columns:
     tree.heading(col, text=col)
 tree.pack()
 
-def creation_bateau(col, li, longueur, num, etape):
-    print(col, li, longueur, num, etape)
+def creation_bateau(col, li, longueur, num):
+    print(col, li, longueur, num)
 
 exit_button = ttk.Button(
     root,
