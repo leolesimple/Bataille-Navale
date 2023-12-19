@@ -9,4 +9,4 @@ def bateau_utilise():
     for i in range(6):
         n = random(1,3)
         L.append(n)
-        return L
+    return L
