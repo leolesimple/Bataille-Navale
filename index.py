@@ -16,9 +16,9 @@ grille = [
 [None,None,None,None,None,None,None,None] ]
 
 
-def creation_bateau(num_col, li, longueur, num, etape):
+def creation_bateau(num_col, li, longueur, num):
     liste_bateau = []
-    if etape % 2 == 0 :
+    if num % 2 == 0 :
         if 7 - num_col >= longueur :
             for i in range(longueur - 1):
                 grille[num_col[li]] = num
@@ -40,13 +40,13 @@ def creation_bateau(num_col, li, longueur, num, etape):
 
 
 def nombre_bateaux():
-     """Renvoie le nombre de bateaux restants """
+     """Renvoie le nombre de bateaux différents restants """
      bateaux_differents = []
      for i in range(grille):
          for num in i:
              if num not in bateaux_differents:
                  bateaux_differents.append(num)
-     return "Nombre de bateaux restants :" + len(bateaux_differents)
+     return len(bateaux_differents)
 
 
 def enregistrer_bateaux():
@@ -63,7 +63,4 @@ def bateau_touche():
     return 0
 
 def vie_bateau():
-    return 0
-
-def bateaux_restants():
     return 0
