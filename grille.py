@@ -10,19 +10,18 @@ root = tk.Tk()
 root.title("Grille de Boutons")
 root.resizable(False, False)
 
-bg = PhotoImage(file="img/background-sea-water.png")
-
-label2 = Label(root, text="Bataille Navale", bg="#88cffa", font=("Achemine", 70))
-label2.pack(pady=50)
-
-
-# Utiliser une étiquette pour afficher l'image en arrière-plan
-background_label = tk.Label(root, image=bg)
-background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    #bg = PhotoImage(file="img/background-sea-water.png")
 
 for i in range(8):
     for j in range(8):
-        button = tk.Button(root, text=f"{i+1}-{j+1}", width=5, height=4, command=lambda row=i, col=j: (creation_bateau(col, row, randint(1,3), 1, 1), button_click(row, col)))
-        button.grid(row=i, column=j)
+        button = tk.Button(root, text=f"{i+1}-{j+1}", relief=RIDGE, width=5, height=4, command=lambda row=i, col=j: (creation_bateau(col, row, randint(1,3), 1, 1), button_click(row, col)))
+        button.grid(row=i+1, column=j)
+
+root.update_idletasks()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = (screen_width) // 6
+y = (screen_height) // 6
+root.geometry("+{}+{}".format(x, y))
 
 root.mainloop()

@@ -44,8 +44,8 @@ def creation_bateau(col, li, longueur, num, etape):
 
 exit_button = ttk.Button(
     root,
-    text='A8',
-    command=lambda: creation_bateau(4, 8, 3, 1, 1)
+    text='Nouvelle partie',
+    command=lambda: creation_bateau(4, 8, 3, 1, 1),
 )
 
 exit_button.pack(
@@ -59,8 +59,8 @@ afficher_utilisateurs()
 root.update_idletasks()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-x = (screen_width) // 4
-y = (screen_height) // 4
+x = (screen_width) // 7
+y = (screen_height) // 7
 root.geometry("+{}+{}".format(x, y))
 
 root.mainloop()
