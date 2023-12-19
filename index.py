@@ -19,7 +19,7 @@ grille = [
 def creation_bateau(num_col, li, longueur, num, etape):
     liste_bateau = []
     if etape % 2 == 0 :
-        if 8 - num_col >= longueur :
+        if 7 - num_col >= longueur :
             for i in range(longueur - 1):
                 grille[num_col[li]] = num
                 num_col += 1
