@@ -49,9 +49,8 @@ def nombre_bateaux():
      return "Nombre de bateaux restants :" + len(bateaux_differents)
 
 
-#def enregistrer_bateaux():
-#   return "Vive Léo !"
-#à laisser pour Léo
+def enregistrer_bateaux():
+    return "Vive Léo !"
 
 
 def tirer(num_col, li):
