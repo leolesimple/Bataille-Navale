@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
-from grille import *
+from PIL import *
 from leaderboard import *
+from pre_game import *
 
 def menu():
     """
@@ -26,7 +27,7 @@ def menu():
     new_game = ttk.Button(
         button_frame,
         text='Nouvelle partie',
-        command=lambda: init_grille(), #choix des joueurs plutôt que le choix de la position des bateaux.
+        command=lambda: config_game(), #choix des joueurs plutôt que le choix de la position des bateaux.
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
