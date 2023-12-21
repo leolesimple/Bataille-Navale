@@ -24,7 +24,7 @@ def leaderboard() :
     label1 = Label(root, bg="#88cffa", width=1280, height=854)
     label1.place(x=0, y=0)
 
-    label2 = Label(root, text="Leaderboard",fg="black", bg="#559bd4", font=("Parisine", 70))
+    label2 = Label(root, text="Leaderboard",fg="black", bg="#88cffa", font=("Parisine", 70))
     label2.pack(pady=50)
 
     frame1 = Frame(root, bg="#AAE0FE")

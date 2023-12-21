@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from grille import init_boat
+from grille import *
 from leaderboard import *
 
 def menu():
@@ -26,7 +26,7 @@ def menu():
     new_game = ttk.Button(
         button_frame,
         text='Nouvelle partie',
-        command=lambda: init_boat(), #choix des joueurs plutôt que le choix de la position des bateaux.
+        command=lambda: init_grille(), #choix des joueurs plutôt que le choix de la position des bateaux.
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
@@ -45,5 +45,4 @@ def menu():
     x = (screen_width) // 7
     y = (screen_height) // 7
     root.geometry("+{}+{}".format(x, y))
-
     root.mainloop()
