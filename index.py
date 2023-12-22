@@ -41,7 +41,13 @@ def tirer(num_col, li):
     return False #en gros t'es nul t'as rate
 
 
-"""
-def commencer_tour():
-return mode=2 , list des grilles , joueur actuel , joueur en attente 
-"""
+def commencer_tour(joueur_actuel, joueur_prochain):
+    """Renvoie une fonction avec comme arguments :
+    - le mode
+    - la grille de l'adversaire
+    - la grille du joueur actuel avec ses bateaux
+    - le joueur qui joue
+    - le joueur en attente"""
+    j1 = joueur_actuel
+    j2 = joueur_prochain
+    return init_grille(2, "grille adversaire", "grille joueur qui joue (ses bateaux)",j1, j2)
