@@ -4,7 +4,7 @@ import sqlite3
 from random import random
 
 
-grille = [
+grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
@@ -13,16 +13,25 @@ grille = [
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None] ]
+[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ]]
 
 
 def longueur_bateau():
     """pour savoir la longueur des bateaux"""
-    L = []
+    L_j0 = []
     for i in range(6):
         n = random(1,3)
-        L.append(n)
-    l = L
-    return L , l
+        L_j0.append(n)
+    L_j1 = L_j0
+    return L_j0 , L_j1
 
 def select_joueur():
     selectIn = sqlite3.connect('general.db')
