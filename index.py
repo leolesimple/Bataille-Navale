@@ -24,6 +24,8 @@ grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None] ] ]
 
+grille_a_zero = grille
+
 
 def creation_bateau(num_joueur,num_col, li, longueur, num):
     """renvoie la grille avec les numeros des bateaux, et si ya rien bah cest none
