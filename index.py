@@ -76,8 +76,20 @@ def tirer(joueur_adverse,num_col, li):
          return True #en gros c'est touche
     return False #en gros t'es nul t'as rate
 
-def bateau_touche():
-    return 0
+def bateau_touche(joueur_adverse):
+    """Retourne un dico avec les coo des cases touchees et cases coulees
+    PDV du joueur actuel, la grille sera la grille de tir du joueur actuel"""
+    coo_touchees = []
+    coo_coulees = []
+    for i in grille[joueur_adverse]:
+        for k in i:
+            if k == False:
+                coo_touchees.append(tuple(k, i))
+            elif k == True :
+                coo_coulees.append(tuple(k, i))
+
+    dico = { "touche" : coo_touchees, "coule" : coo_coulees}
+    return dico
 
 def vie_bateau(joueur_actuel,numero):
     """renvoie la vie d'un bateau specifie par son numero entre en parametre
@@ -94,13 +106,3 @@ def reset():
     grille = grille_a_zero
 
 
-def commencer_tour(joueur_actuel, joueur_prochain):
-    """Renvoie une fonction avec comme arguments :
-    - le mode
-    - la grille de l'adversaire
-    - la grille du joueur actuel avec ses bateaux
-    - le joueur qui joue
-    - le joueur en attente"""
-    j1 = joueur_actuel
-    j2 = joueur_prochain
-    return init_grille(2, "grille adversaire", "grille joueur qui joue (ses bateaux)",j1, j2)
