@@ -5,7 +5,7 @@ import sqlite3
 
 
 
-grille = [
+grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
@@ -13,21 +13,35 @@ grille = [
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
-[None,None,None,None,None,None,None,None] ]
+[None,None,None,None,None,None,None,None] ],
+[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ] ]
 
-grille_a_zero = grille
 
-def creation_bateau(num_col, li, longueur, num):
-    """renvoie la grille avec les numeros des bateaux, et si ya rien bah cest none"""
+def creation_bateau(num_joueur,num_col, li, longueur, num):
+    """renvoie la grille avec les numeros des bateaux, et si ya rien bah cest none
+    Prend en parametre :
+    - num du joueur (0 ou 1) qui definit quelle liste de liste prendre
+    - num colonne pour la 1ere sousliste definissant les colonnes
+    - li pour la 2e sous liste definissant les lignes
+    - longueur qui sera la longueur du bateau
+    - num qui correspont a l'etape et au numero du bateau"""
     liste_bateau = []
     if num % 2 == 0 :
         if 7 - num_col >= longueur :
             for i in range(longueur - 1):
-                grille[num_col[li]] = num
+                grille[num_joueur][num_col][li] = num
                 num_col += 1
         else :
             for i in range(longueur - 1):
-                grille[num_col[li]] = num
+                grille[num_joueur][num_col][li] = num
                 num_col -= 1
     else :
         if 7 - li >= longueur :
@@ -71,3 +85,15 @@ def vie_bateau(numero):
 
 def reset():
     grille = grille_a_zero
+
+
+def commencer_tour(joueur_actuel, joueur_prochain):
+    """Renvoie une fonction avec comme arguments :
+    - le mode
+    - la grille de l'adversaire
+    - la grille du joueur actuel avec ses bateaux
+    - le joueur qui joue
+    - le joueur en attente"""
+    j1 = joueur_actuel
+    j2 = joueur_prochain
+    return init_grille(2, "grille adversaire", "grille joueur qui joue (ses bateaux)",j1, j2)
