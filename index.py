@@ -12,7 +12,7 @@ grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
-[None,None,None,None,None,None,None,None] ]
+[None,None,None,None,None,None,None,None] ],
 [
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
@@ -43,11 +43,32 @@ def select_joueur():
 def changement_de_joueur(joueur):
     return 
 
-def tirer(num_col, li):
-    if grille[num_col[li]] != False and grille[num_col[li]] != None :
-         grille[num_col[li]] = False
+def tirer(joueur_adverse,num_col, li):
+    """Retourne si le tir a touche ou non
+    Prend en parametre la grille du joueur adverse,
+    le num de la colonne et de la ligne ou il tire
+    il retourne True si le tir a touche et false sinon"""
+    if grille[joueur_adverse][num_col][li] != False and grille[joueur_adverse][num_col][li] != None :
+         grille[joueur_adverse][num_col][li] = False
          return True #en gros c'est touche
     return False #en gros t'es nul t'as rate
+
+def bateau_touche():
+    return 0
+
+def vie_bateau(joueur_actuel,numero):
+    """renvoie la vie d'un bateau specifie par son numero entre en parametre
+    Prend en parametre le joueur actuel et renvoie les pv du bateau specifie"""
+    vie_bateau = 0
+    for i in grille[joueur_actuel]:
+        if i == numero:
+            vie_bateau += 1
+    return vie_bateau
+
+
+def reset():
+    """reinitialise la grille a 0"""
+    grille = grille_a_zero
 
 
 def commencer_tour(joueur_actuel, joueur_prochain):
