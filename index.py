@@ -46,44 +46,51 @@ def creation_bateau(num_joueur,num_col, li, longueur, num):
     else :
         if 7 - li >= longueur :
             for i in range(longueur - 1):
-                grille[num_col[li]] = num
+                grille[num_joueur][num_col][li] = num
                 li += 1
         else :
             for i in range(longueur - 1):
-                grille[num_col[li]] = num
+                grille[num_joueur][num_col][li] = num
                 li -= 1
 
 
-def nombre_bateaux():
-     """Renvoie le nombre de bateaux differents restants """
+def nombre_bateaux(joueur_actuel):
+     """Renvoie le nombre de bateaux differents restants
+      Prend en parametre le joueur actuel et renvoie le nombre de bateau dans
+      la liste (sa grille) qui lui est attribuee"""
      bateaux_differents = []
-     for i in range(grille):
+     for i in range(grille[joueur_actuel]):
          for num in i:
              if num not in bateaux_differents:
                  bateaux_differents.append(num)
      return len(bateaux_differents)
 
 
-def tirer(num_col, li):
-    """Retourne si le tir a touche ou non"""
-    if grille[num_col[li]] != False and grille[num_col[li]] != None :
-         grille[num_col[li]] = False
+def tirer(joueur_adverse,num_col, li):
+    """Retourne si le tir a touche ou non
+    Prend en parametre la grille du joueur adverse,
+    le num de la colonne et de la ligne ou il tire
+    il retourne True si le tir a touche et false sinon"""
+    if grille[joueur_adverse][num_col][li] != False and grille[joueur_adverse][num_col][li] != None :
+         grille[joueur_adverse][num_col][li] = False
          return True #en gros c'est touche
     return False #en gros t'es nul t'as rate
 
 def bateau_touche():
     return 0
 
-def vie_bateau(numero):
-    """renvoie la vie d'un bateau specifie par son numero entre en parametre"""
+def vie_bateau(joueur_actuel,numero):
+    """renvoie la vie d'un bateau specifie par son numero entre en parametre
+    Prend en parametre le joueur actuel et renvoie les pv du bateau specifie"""
     vie_bateau = 0
-    for i in grille:
+    for i in grille[joueur_actuel]:
         if i == numero:
             vie_bateau += 1
     return vie_bateau
 
 
 def reset():
+    """reinitialise la grille a 0"""
     grille = grille_a_zero
 
 
