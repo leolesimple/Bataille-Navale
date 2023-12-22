@@ -27,7 +27,7 @@ def menu():
     new_game = ttk.Button(
         button_frame,
         text='Nouvelle partie',
-        command=lambda: config_game(), #choix des joueurs plutôt que le choix de la position des bateaux.
+        command=lambda: config_game(), 
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
