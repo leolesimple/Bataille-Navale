@@ -87,7 +87,6 @@ def bateau_touche(joueur_adverse):
                 coo_touchees.append(tuple(k, i))
             elif k == True :
                 coo_coulees.append(tuple(k, i))
-
     dico = { "touche" : coo_touchees, "coule" : coo_coulees}
     return dico
 
