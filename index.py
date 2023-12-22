@@ -50,10 +50,6 @@ def nombre_bateaux():
      return len(bateaux_differents)
 
 
-def enregistrer_bateaux():
-    return "Vive Léo !"
-
-
 def tirer(num_col, li):
     """Retourne si le tir a touche ou non"""
     if grille[num_col[li]] != False and grille[num_col[li]] != None :
@@ -61,6 +57,8 @@ def tirer(num_col, li):
          return True #en gros c'est touche
     return False #en gros t'es nul t'as rate
 
+def bateau_touche():
+    return 0
 
 def vie_bateau(numero):
     """renvoie la vie d'un bateau specifie par son numero entre en parametre"""
