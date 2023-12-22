@@ -18,7 +18,7 @@ def init_grille(mode, grille_ad, grille_joueur, j_act, j_wait):
     def button_click(row, col):
         nonlocal etape
         print(f"Button clicked at row {row}, column {col}")
-        etape += 1
+        etape += 1 
         if etape > 6:
             root.destroy()
 
