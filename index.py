@@ -23,6 +23,8 @@ grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None] ]]
 
+grille_a_zero = grille
+
 
 def longueur_bateau():
     """pour savoir la longueur des bateaux"""
@@ -40,8 +42,8 @@ def select_joueur():
     player_names = [row[0] for row in cursor.fetchall()]
     selectIn.close()
 
-def changement_de_joueur(joueur):
-    return 
+def changement_de_joueur(joueur_actuel,joueur_prochain):
+    return joueur_prochain,joueur_actuel
 
 def tirer(joueur_adverse,num_col, li):
     """Retourne si le tir a touche ou non
@@ -71,7 +73,7 @@ def reset():
     grille = grille_a_zero
 
 
-def commencer_tour(joueur_actuel, joueur_prochain):
+def commencer_tour(joueur_actuel, joueur_prochain, grille):
     """Renvoie une fonction avec comme arguments :
     - le mode
     - la grille de l'adversaire
@@ -80,4 +82,5 @@ def commencer_tour(joueur_actuel, joueur_prochain):
     - le joueur en attente"""
     j1 = joueur_actuel
     j2 = joueur_prochain
-    return init_grille(2, "grille adversaire", "grille joueur qui joue (ses bateaux)",j1, j2)
+    
+    return init_grille(2, """grille adversaire""", """grille joueur qui joue (ses bateaux)""",j1, j2)
