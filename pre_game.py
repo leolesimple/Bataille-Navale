@@ -1,41 +1,104 @@
+from stock_var import *
+import sqlite3
 from tkinter import *
 from tkinter import ttk
 
-def debut_partie():
-    return 1
+
+def error_gamer(case):
+    from tkinter import messagebox
+
+    if case == 1:
+        messagebox.showerror(
+            "Les joueurs doivent être rempli pour commencer la partie !"
+        )
+    elif case == 2:
+        messagebox.showerror(
+            "Les joueurs doivent être différents pour commencer la partie !"
+        )
+    exit()
+
+
+def select_gamers():
+    global j1, j2
+    j1, j2 = name_j1_list.get(), name_j2_list.get()
+    assert j1 != "" and j2 != "", error_gamer(1)
+    if j1 == j2:
+        error_gamer(2)
+
 
 def config_game():
     """
-        Fenêtre de "configuration du jeu' --> choix des joueurs et initialisation des positions de bateaux.
+    Fenêtre de "configuration du jeu' --> choix des joueurs et initialisation des positions de bateaux.
     """
+    global name_j1_list, name_j2_list, player_names, player_ids, pre_game
+
     pre_game = Tk()
     pre_game.title("Configuration du jeu | NSI")
-    pre_game.geometry("1280x854")
+    screen_height = pre_game.winfo_screenheight()
+
+    if screen_height < 854:
+        pre_game.geometry("1080x724")
+    else:
+        pre_game.geometry("1280x854")
+
     pre_game.resizable(False, False)
 
-    bg = PhotoImage(file="img/background-sea-water.png")
-
-    background_label = Label(pre_game, image=bg)
+    background_label = Label(pre_game, bg="#88cffa")
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    title = Label(pre_game, text="Nouvelle partie", fg="black", font=("Parisine", 45), bg="#3676a8", padx=20, pady=20)
-    title.pack(pady=50)
+    title = Label(
+        pre_game,
+        text="Nouvelle partie",
+        fg="black",
+        font=("Parisine", 45),
+        bg="#88cffa",
+    )
+    title.pack(pady=(50, 0))
+    disclaimer = Label(
+        pre_game,
+        text="Si votre nom n'apparaît pas dans les listes, \n accéder au leaderboard pour créer votre joueur.",
+        fg="black",
+        font=("Parisine", 20),
+        bg="#88cffa",
+        padx=0,
+        pady=0,
+    )
+    disclaimer.pack(pady=(0, 50))
 
-    button_frame = Frame(pre_game, bg="#3676a8")
+    selectIn = sqlite3.connect("general.db")
+    cursor = selectIn.cursor()
+    cursor.execute("SELECT nom,id FROM joueurs")
+    player_names = [row[0] for row in cursor.fetchall()]
+    player_ids = [row[1] for row in cursor.fetchall()]
+    selectIn.close()
+
+    name_j1 = Label(pre_game, text="Premier joueur :", bg="#88cffa", padx=10, pady=10)
+    name_j1.pack()
+
+    name_j1_list = ttk.Combobox(pre_game, values=player_names)
+    name_j1_list.pack()
+
+    name_j2 = Label(pre_game, text="Deuxième joueur :", bg="#88cffa", padx=10, pady=10)
+    name_j2.pack()
+
+    name_j2_list = ttk.Combobox(pre_game, values=player_names, background="#88cffa")
+    name_j2_list.pack()
+
+    button_frame = Frame(pre_game, bg="#88cffa")
     button_frame.pack()
 
     new_game = ttk.Button(
         button_frame,
-        text='Continuer',
-        command=lambda: debut_partie(),
+        text="Continuer",
+        command=lambda: select_gamers(),
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
 
     annul_button = ttk.Button(
         button_frame,
-        text='Annuler',
-        command=lambda: new_game.destroy(),
+        text="Annuler",
+        command=lambda:[exit()],
     )
 
     annul_button.grid(row=0, column=1, padx=10, pady=10)
@@ -43,7 +106,9 @@ def config_game():
     pre_game.update_idletasks()
     screen_width = pre_game.winfo_screenwidth()
     screen_height = pre_game.winfo_screenheight()
-    x = (screen_width) // 7
-    y = (screen_height) // 7
+    x = (screen_width) // 5
+    y = (screen_height) // 5
     pre_game.geometry("+{}+{}".format(x, y))
     pre_game.mainloop()
+
+from menu import *

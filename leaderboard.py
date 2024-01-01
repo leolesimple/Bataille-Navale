@@ -2,21 +2,24 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 
+
 def get_utilisateurs():
     """
-        Fonction qui va chercher le contenu de la base de données des joueurs et retourne une liste de ceux-ci et leur score.
+    Fonction qui va chercher le contenu de la base de données des joueurs et retourne une liste de ceux-ci et leur score.
     """
-    conn = sqlite3.connect('general.db')
+    conn = sqlite3.connect("general.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM joueurs")
     utilisateurs = cursor.fetchall()
     conn.close()
     return utilisateurs
 
-def leaderboard() :
+
+def leaderboard():
     """
     Fenêtre Tkinter représentant le tableau des scores des joueurs avec la possibilité d'en ajouter ou d'en supprimer.
     """
+    global root
     root = Tk()
     root.title("Leaderboard | NSI")
     root.geometry("800x600")
@@ -24,7 +27,9 @@ def leaderboard() :
     label1 = Label(root, bg="#88cffa", width=1280, height=854)
     label1.place(x=0, y=0)
 
-    label2 = Label(root, text="Leaderboard",fg="black", bg="#88cffa", font=("Parisine", 70))
+    label2 = Label(
+        root, text="Leaderboard", fg="black", bg="#88cffa", font=("Parisine", 70)
+    )
     label2.pack(pady=50)
 
     frame1 = Frame(root, bg="#AAE0FE")
@@ -41,7 +46,7 @@ def leaderboard() :
 
     back = ttk.Button(
         button_frame,
-        text='Fermer',
+        text="Fermer",
         command=lambda: root.destroy(),
     )
 
@@ -49,7 +54,7 @@ def leaderboard() :
 
     addPlayer = ttk.Button(
         button_frame,
-        text='+',
+        text="+",
         command=lambda: add_player(),
     )
 
@@ -57,15 +62,15 @@ def leaderboard() :
 
     delPlayer = ttk.Button(
         button_frame,
-        text='-',
+        text="-",
         command=lambda: delete_player(),
     )
 
     delPlayer.grid(row=0, column=2, padx=10, pady=10)
 
-    def show_users() :
+    def show_users():
         """
-            Fonction d'initialisation du tableau des scores qui appelle la fonction get_utilisateurs().
+        Fonction d'initialisation du tableau des scores qui appelle la fonction get_utilisateurs().
         """
         utilisateurs = get_utilisateurs()
         for utilisateur in utilisateurs:
@@ -76,17 +81,20 @@ def leaderboard() :
     root.update_idletasks()
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-    x = (screen_width) // 7
-    y = (screen_height) // 7
+    x = (screen_width) // 5
+    y = (screen_height) // 5
     root.geometry("+{}+{}".format(x, y))
 
     root.mainloop()
 
+
 def delete_player():
+    global del_win
     """
-        Fonction de suppression d'un utilisateur de la base de données via une liste de noms.
+    Fonction de suppression d'un utilisateur de la base de données via une liste de noms.
     """
     from tkinter import messagebox
+
     def delete():
         selected_name = name_combobox.get()
 
@@ -94,13 +102,13 @@ def delete_player():
             messagebox.showerror("Erreur", "Veuillez sélectionner un joueur.")
             return
 
-        match = sqlite3.connect('general.db')
+        match = sqlite3.connect("general.db")
         cursor = match.cursor()
         cursor.execute("SELECT id FROM joueurs WHERE nom=?", (selected_name,))
         player_id = cursor.fetchone()[0]
         match.close()
 
-        del_db = sqlite3.connect('general.db')
+        del_db = sqlite3.connect("general.db")
         cursor = del_db.cursor()
         cursor.execute("DELETE FROM joueurs WHERE id=?", (player_id,))
         del_db.commit()
@@ -110,9 +118,9 @@ def delete_player():
 
     del_win = Tk()
     del_win.title("Supprimer un Joueur")
-    del_win.geometry('300x200')
+    del_win.geometry("300x200")
 
-    selectIn = sqlite3.connect('general.db')
+    selectIn = sqlite3.connect("general.db")
     cursor = selectIn.cursor()
     cursor.execute("SELECT nom FROM joueurs")
     player_names = [row[0] for row in cursor.fetchall()]
@@ -124,15 +132,21 @@ def delete_player():
     name_combobox = ttk.Combobox(del_win, values=player_names)
     name_combobox.pack()
 
-    delete_btn = Button(del_win, text="Supprimer", command=delete)
+    delete_btn = Button(
+        del_win,
+        text="Supprimer",
+        command=lambda: [delete(), del_win.destroy(), reload_leaderbord()],
+    )
     delete_btn.pack()
 
     del_win.mainloop()
 
+
 def add_player():
-    '''
+    global add_win
+    """
     Formulaire d'inscription au jeu, ajout d'un joueur.
-    '''
+    """
     from tkinter import messagebox
 
     def save():
@@ -142,7 +156,7 @@ def add_player():
             messagebox.showerror("Erreur", "Veuillez entrer un nom.")
             return
 
-        verified = sqlite3.connect('general.db')
+        verified = sqlite3.connect("general.db")
         cursor = verified.cursor()
         cursor.execute("SELECT COUNT(*) FROM joueurs WHERE nom=?", (name,))
         count = cursor.fetchone()[0]
@@ -152,7 +166,7 @@ def add_player():
             messagebox.showerror("Erreur", "Ce nom d'utilisateur existe déjà.")
             return
 
-        insert = sqlite3.connect('general.db')
+        insert = sqlite3.connect("general.db")
         cursor = insert.cursor()
         cursor.execute("INSERT INTO joueurs(nom, score) VALUES (?, 0)", (name,))
         insert.commit()
@@ -171,7 +185,17 @@ def add_player():
     name_entry = Entry(form_frame)
     name_entry.pack()
 
-    add_btn = Button(form_frame, text="Ajouter", command=save)
+    add_btn = Button(
+        form_frame,
+        text="Ajouter",
+        command=lambda: [save(), add_win.destroy(), reload_leaderbord()],
+    )
     add_btn.pack()
 
     add_win.mainloop()
+
+
+def reload_leaderbord():
+    global root
+    root.destroy()
+    leaderboard()

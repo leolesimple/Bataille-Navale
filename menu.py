@@ -1,49 +1,69 @@
+from pre_game import *
 import tkinter as tk
 from tkinter import ttk
-from PIL import *
 from leaderboard import *
-from pre_game import *
 
-def menu():
+
+def menu(type="color"):
+    global menu_root
     """
-        Fenêtre d'accueil du jeu de la Bataille Navale.
+    Fenêtre d'accueil du jeu de la Bataille Navale.
     """
-    root = Tk()
-    root.title("Bataille Navale | NSI")
-    root.geometry("1280x854")
-    root.resizable(False, False)
+    menu_root = Tk()
+    menu_root.title("Bataille Navale | NSI")
 
-    bg = PhotoImage(file="img/background-sea-water.png")
+    screen_height = menu_root.winfo_screenheight()
 
-    background_label = Label(root, image=bg)
+    if screen_height < 854:
+        menu_root.geometry("1080x724")
+    else:
+        menu_root.geometry("1280x854")
+    menu_root.resizable(False, False)
+
+    if type == "image" :
+        bg = PhotoImage(file="img/background-sea-water.png")
+        background_label = Label(menu_root, image=bg)
+    else : 
+        background_label = Label(menu_root, bg = "#88cffa")
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    title = Label(root, text="Bataille Navale", fg="black", font=("Parisine", 70), bg="#3676a8", padx=20, pady=20)
+    title = Label(
+        menu_root,
+        text="Bataille Navale",
+        fg="black",
+        font=("Parisine", 70),
+        bg="#3676a8",
+        padx=20,
+        pady=20,
+    )
     title.pack(pady=50)
 
-    button_frame = Frame(root, bg="#3676a8")
+    button_frame = Frame(menu_root, bg="#3676a8")
     button_frame.pack()
 
     new_game = ttk.Button(
         button_frame,
-        text='Nouvelle partie',
-        command=lambda: config_game(), 
+        text="Nouvelle partie",
+        command=lambda:(menu_root.destroy(), config_game()),
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
 
     leaderboard_button = ttk.Button(
         button_frame,
-        text='Leaderboard',
-        command=lambda: leaderboard(),
+        text="Leaderboard",
+        command=lambda:[leaderboard()],
     )
 
     leaderboard_button.grid(row=0, column=1, padx=10, pady=10)
 
-    root.update_idletasks()
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    x = (screen_width) // 7
-    y = (screen_height) // 7
-    root.geometry("+{}+{}".format(x, y))
-    root.mainloop()
+    menu_root.update_idletasks()
+    screen_width = menu_root.winfo_screenwidth()
+    screen_height = menu_root.winfo_screenheight()
+    x = (screen_width) // 5
+    y = (screen_height) // 5
+    menu_root.geometry("+{}+{}".format(x, y))
+    bar()
+    menu_root.mainloop()
+
+from bar import *
