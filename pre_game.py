@@ -2,6 +2,7 @@ from stock_var import *
 import sqlite3
 from tkinter import *
 from tkinter import ttk
+from game import *
 
 
 def error_gamer(case):
@@ -18,19 +19,30 @@ def error_gamer(case):
     exit()
 
 
-def select_gamers():
-    global j1, j2
-    j1, j2 = name_j1_list.get(), name_j2_list.get()
-    assert j1 != "" and j2 != "", error_gamer(1)
-    if j1 == j2:
-        error_gamer(2)
-
-
 def config_game():
     """
     Fenêtre de "configuration du jeu' --> choix des joueurs et initialisation des positions de bateaux.
     """
-    global name_j1_list, name_j2_list, player_names, player_ids, pre_game
+
+    def select_gamers():
+        global j1, j2
+        nonlocal name_j1_list, name_j2_list, player_names, button_frame, player_ids, pre_game, new_game, annul_button
+        value_combo_j1 = name_j1_list.get()
+        j1 = value_combo_j1
+        value_combo_j2 = name_j2_list.get()
+        j2 = value_combo_j2
+        assert j1 != "" and j2 != "", error_gamer(1)
+        if j1 == j2:
+            error_gamer(2)
+        else:
+            new_game.destroy()
+            annul_button.destroy()
+            start = ttk.Button(
+                button_frame,
+                text="Commencer",
+                command=lambda: [pre_game.destroy(), wait_game(j1, 1)],
+            )
+            start.grid(row=0, column=0, padx=10, pady=10)
 
     pre_game = Tk()
     pre_game.title("Configuration du jeu | NSI")
@@ -56,7 +68,7 @@ def config_game():
     title.pack(pady=(50, 0))
     disclaimer = Label(
         pre_game,
-        text="Si votre nom n'apparaît pas dans les listes, \n accéder au leaderboard pour créer votre joueur.",
+        text="Si votre nom/pseudo n'apparaît pas dans les listes, \n accéder au leaderboard pour créer votre joueur.",
         fg="black",
         font=("Parisine", 20),
         bg="#88cffa",
@@ -98,7 +110,7 @@ def config_game():
     annul_button = ttk.Button(
         button_frame,
         text="Annuler",
-        command=lambda:[exit()],
+        command=lambda: [exit()],
     )
 
     annul_button.grid(row=0, column=1, padx=10, pady=10)
@@ -109,6 +121,9 @@ def config_game():
     x = (screen_width) // 5
     y = (screen_height) // 5
     pre_game.geometry("+{}+{}".format(x, y))
+    print(type(pre_game))
     pre_game.mainloop()
 
-from menu import *
+
+def game(j_act, grille_adv, grille_j):
+    return 1

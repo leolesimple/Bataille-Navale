@@ -13,6 +13,7 @@
 
 ## Commentaires : 
 ***Au lancement de nouvelles fenêtres, celle-ci a de temps en temps besoin d'être déplacée pour fonctionner, nous espérons trouver la solution à ce problème au plus vite !***
+**La première version du jeu se déroule via plusieurs fenêtres, une version avec une seule fenêtre sera ajoutée plus tard.**
 - La partie de code produite par Léo est essentiellement formulée en anglais par habitude sur d'autres projets.
 
 ## Répartition des tâches : 
