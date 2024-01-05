@@ -4,7 +4,7 @@ import sqlite3
 from random import random
 
 
-grille = [[
+grille = [[[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
@@ -21,9 +21,28 @@ grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
-[None,None,None,None,None,None,None,None] ]]
+[None,None,None,None,None,None,None,None] ]],
+[[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ],
+[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ]]]
 
 grille_a_zero = grille
+
 
 
 def longueur_bateau():
@@ -32,8 +51,7 @@ def longueur_bateau():
     for i in range(6):
         n = random(1,3)
         L_j0.append(n)
-    L_j1 = L_j0
-    return L_j0 , L_j1
+    return L_j0 
 
 def select_joueur():
     selectIn = sqlite3.connect('general.db')
@@ -41,22 +59,22 @@ def select_joueur():
     cursor.execute("SELECT nom FROM joueurs")
     player_names = [row[0] for row in cursor.fetchall()]
     selectIn.close()
+    # a supprimer je crois
 
 def changement_de_joueur(joueur_actuel,joueur_prochain):
-    return joueur_prochain,joueur_actuel
+    joueur_pro,joueur_act = joueur_actuel,joueur_prochain
+    return joueur_act,joueur_pro
 
-def tirer(joueur_adverse,num_col, li):
+def tirer(joueur_actuel,joueur_adverse,num_col, li):
     """Retourne si le tir a touche ou non
     Prend en parametre la grille du joueur adverse,
     le num de la colonne et de la ligne ou il tire
     il retourne True si le tir a touche et false sinon"""
-    if grille[joueur_adverse][num_col][li] != False and grille[joueur_adverse][num_col][li] != None :
-         grille[joueur_adverse][num_col][li] = False
+    if grille[joueur_adverse][0][num_col][li] != False and grille[joueur_adverse][0][num_col][li] != None :
+         grille[joueur_actuel][1][num_col][li] = True
          return True #en gros c'est touche
     return False #en gros t'es nul t'as rate
 
-def bateau_touche():
-    return 0
 
 def vie_bateau(joueur_actuel,numero):
     """renvoie la vie d'un bateau specifie par son numero entre en parametre
@@ -80,7 +98,22 @@ def commencer_tour(joueur_actuel, joueur_prochain, grille):
     - la grille du joueur actuel avec ses bateaux
     - le joueur qui joue
     - le joueur en attente"""
+    reset()
     j1 = joueur_actuel
     j2 = joueur_prochain
+    return init_grille(2,grille[joueur_prochain],  grille[joueur_actuel][0],j1, j2)
+
+def deroulement_tour(joueur_actuel,joueur_prochain):
+    """deroulement d'un tour"""
+    if nombre_bateaux(joueur_actuel) == 0:
+        return 0 # fin jeu 
+    # ecran noir avec bouton pourconfirmer qu'il change de joueur
+    # apparition de la grille du joueur et celle dans lequel il tire 
+    # clique sur une case de la grille dans lequel il tire (celle ci sera dans une variable qui sera utilise pour la fonction tirer)
+    tirer(joueur_actuel,joueur_prochain,"""case cliquee""")
+    if nombre_bateaux(joueur_prochain) == 0:
+        return 0 # fin jeu 
+    # afficher pendant un certain temps l'ecran 
+    # mettre ecran noir 
+    deroulement_tour(changement_de_joueur(joueur_actuel,joueur_prochain))
     
-    return init_grille(2, """grille adversaire""", """grille joueur qui joue (ses bateaux)""",j1, j2)
