@@ -3,6 +3,8 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 from game import *
+import faulthandler
+faulthandler.enable()
 
 
 def error_gamer(case):
@@ -25,7 +27,6 @@ def config_game():
     """
 
     def select_gamers():
-        global j1, j2
         nonlocal name_j1_list, name_j2_list, player_names, button_frame, player_ids, pre_game, new_game, annul_button
         value_combo_j1 = name_j1_list.get()
         j1 = value_combo_j1
@@ -40,7 +41,7 @@ def config_game():
             start = ttk.Button(
                 button_frame,
                 text="Commencer",
-                command=lambda: [pre_game.destroy(), wait_game(j1, 1)],
+                command=lambda: [pre_game.destroy(), wait_game(j1,j2, 1)],
             )
             start.grid(row=0, column=0, padx=10, pady=10)
 
@@ -125,5 +126,5 @@ def config_game():
     pre_game.mainloop()
 
 
-def game(j_act, grille_adv, grille_j):
-    return 1
+#def game(j_act, grille_adv, grille_j):
+    #return 1

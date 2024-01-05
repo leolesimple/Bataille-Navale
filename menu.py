@@ -2,6 +2,9 @@ from pre_game import *
 import tkinter as tk
 from tkinter import ttk
 from leaderboard import *
+import faulthandler
+
+faulthandler.enable()
 
 
 def menu(type="color"):
@@ -44,7 +47,7 @@ def menu(type="color"):
     new_game = ttk.Button(
         button_frame,
         text="Nouvelle partie",
-        command=lambda: (menu_root.destroy(), config_game()),
+        command=lambda: (config_game()),
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
