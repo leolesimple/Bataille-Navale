@@ -45,7 +45,7 @@ grille = [[
 grille_a_zero = grille
 
 
-def creation_bateau(num_joueur,num_col, li, longueur, num):
+def creation_bateau(num_joueur,num_col, li, longueur_bateau(), num):
     """renvoie la grille avec les numeros des bateaux, et si ya rien bah cest none
     Prend en parametre :
     - num du joueur (0 ou 1) qui definit quelle liste de liste prendre
