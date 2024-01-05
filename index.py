@@ -22,6 +22,24 @@ grille = [[
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ] 
+[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None] ],
+[
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
+[None,None,None,None,None,None,None,None],
 [None,None,None,None,None,None,None,None] ] ]
 
 grille_a_zero = grille
@@ -39,20 +57,20 @@ def creation_bateau(num_joueur,num_col, li, longueur, num):
     if num % 2 == 0 :
         if 7 - num_col >= longueur :
             for i in range(longueur - 1):
-                grille[num_joueur][num_col][li] = num
+                grille[num_joueur][0][num_col][li] = num
                 num_col += 1
         else :
             for i in range(longueur - 1):
-                grille[num_joueur][num_col][li] = num
+                grille[num_joueur][0][num_col][li] = num
                 num_col -= 1
     else :
         if 7 - li >= longueur :
             for i in range(longueur - 1):
-                grille[num_joueur][num_col][li] = num
+                grille[num_joueur][0][num_col][li] = num
                 li += 1
         else :
             for i in range(longueur - 1):
-                grille[num_joueur][num_col][li] = num
+                grille[num_joueur][0][num_col][li] = num
                 li -= 1
 
 
@@ -61,21 +79,23 @@ def nombre_bateaux(joueur_actuel):
       Prend en parametre le joueur actuel et renvoie le nombre de bateau dans
       la liste (sa grille) qui lui est attribuee"""
      bateaux_differents = []
-     for i in range(grille[joueur_actuel]):
+     for i in range(grille[joueur_actuel][0]):
          for num in i:
              if num not in bateaux_differents:
                  bateaux_differents.append(num)
      return len(bateaux_differents)
 
 
-def tirer(joueur_adverse,num_col, li):
+def tirer(joueur_actuel,joueur_adverse,num_col, li):
     """Retourne si le tir a touche ou non
     Prend en parametre la grille du joueur adverse,
     le num de la colonne et de la ligne ou il tire
     il retourne True si le tir a touche et false sinon"""
-    if grille[joueur_adverse][num_col][li] != False and grille[joueur_adverse][num_col][li] != None :
-         grille[joueur_adverse][num_col][li] = False
+    if grille[joueur_adverse][0][num_col][li] != False and grille[joueur_adverse][0][num_col][li] != None :
+         grille[joueur_adverse][0][num_col][li] = False
+         grille[joueur_actuel][1][num_col][li] = True #la grille de tir du joueur montre qu'il a touche
          return True #en gros c'est touche
+    grille[joueur_actuel][1][num_col][li] = False #la grille de tir du joueur montre qu'il a rate
     return False #en gros t'es nul t'as rate
 
 def bateau_touche(joueur_adverse):
@@ -83,7 +103,7 @@ def bateau_touche(joueur_adverse):
     PDV du joueur actuel, la grille sera la grille de tir du joueur actuel"""
     coo_touchees = []
     coo_coulees = []
-    for i in grille[joueur_adverse]:
+    for i in grille[joueur_adverse][0]:
         for k in i:
             if k == False:
                 coo_touchees.append(tuple(k, i))
@@ -96,7 +116,7 @@ def vie_bateau(joueur_actuel,numero):
     """renvoie la vie d'un bateau specifie par son numero entre en parametre
     Prend en parametre le joueur actuel et renvoie les pv du bateau specifie"""
     vie_bateau = 0
-    for i in grille[joueur_actuel]:
+    for i in grille[joueur_actuel][0]:
         if i == numero:
             vie_bateau += 1
     return vie_bateau
