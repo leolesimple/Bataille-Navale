@@ -47,7 +47,7 @@ def menu(type="color"):
     new_game = ttk.Button(
         button_frame,
         text="Nouvelle partie",
-        command=lambda: (config_game()),
+        command=lambda: [config_game()],  # menu_root.destroy(),
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)

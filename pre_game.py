@@ -69,7 +69,7 @@ def config_game():
     title.pack(pady=(50, 0))
     disclaimer = Label(
         pre_game,
-        text="Si votre nom/pseudo n'apparaît pas dans les listes, \n accéder au leaderboard pour créer votre joueur.",
+        text="Si votre nom/pseudo n'apparaît pas dans les listes, \n accédez au leaderboard pour créer votre joueur.",
         fg="black",
         font=("Parisine", 20),
         bg="#88cffa",
