@@ -3,9 +3,11 @@ from tkinter import *
 from tkinter import ttk
 
 
-def get_utilisateurs():
+def get_utilisateurs() -> list:
     """
-    Fonction qui va chercher le contenu de la base de données des joueurs et retourne une liste de ceux-ci et leur score.
+    Arguments : Aucun.
+    Retourne : Liste de tuples contenant les informations des joueurs et leurs scores.
+    Description : Se connecte à une base de données SQLite 'general.db', récupère tous les enregistrements de la table 'joueurs' et retourne ces informations sous forme de liste.
     """
     conn = sqlite3.connect("general.db")
     cursor = conn.cursor()
@@ -17,7 +19,9 @@ def get_utilisateurs():
 
 def leaderboard():
     """
-    Fenêtre Tkinter représentant le tableau des scores des joueurs avec la possibilité d'en ajouter ou d'en supprimer.
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Crée une fenêtre Tkinter qui affiche un tableau de classement (leaderboard) des joueurs. Permet l'ajout ou la suppression de joueurs via des boutons interactifs.
     """
     global root
     root = Tk()
@@ -89,6 +93,12 @@ def leaderboard():
 
 
 def delete_player():
+    """
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Affiche une fenêtre Tkinter permettant de sélectionner et supprimer un joueur de la base de données 'general.db'.
+    Met à jour dynamiquement le tableau des scores après la suppression.
+    """
     global del_win
     """
     Fonction de suppression d'un utilisateur de la base de données via une liste de noms.
@@ -143,6 +153,11 @@ def delete_player():
 
 
 def add_player():
+    """
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Ouvre une fenêtre Tkinter avec un formulaire pour ajouter un nouveau joueur à la base de données 'general.db'. Met à jour le tableau des scores après l'ajout.
+    """
     global add_win
     """
     Formulaire d'inscription au jeu, ajout d'un joueur.
@@ -196,6 +211,11 @@ def add_player():
 
 
 def reload_leaderbord():
+    """
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Rafraîchit l'affichage du tableau des scores en fermant et en rouvrant la fenêtre du leaderboard.
+    """
     global root
     root.destroy()
     leaderboard()

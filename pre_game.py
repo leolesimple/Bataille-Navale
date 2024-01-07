@@ -1,13 +1,16 @@
-from stock_var import *
 import sqlite3
 from tkinter import *
 from tkinter import ttk
 from game import *
-import faulthandler
-faulthandler.enable()
 
 
-def error_gamer(case):
+def error_gamer(case: int):
+    """
+    Arguments :
+        case: Numéro indiquant le type d'erreur à afficher.
+    Retourne : Rien.
+    Description : Affiche un message d'erreur spécifique en fonction du cas indiqué et termine le programme. Utilisé pour gérer les erreurs dans le choix des joueurs pour une partie de jeu.
+    """
     from tkinter import messagebox
 
     if case == 1:
@@ -23,10 +26,18 @@ def error_gamer(case):
 
 def config_game():
     """
-    Fenêtre de "configuration du jeu' --> choix des joueurs et initialisation des positions de bateaux.
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Crée une fenêtre de configuration pour une nouvelle partie de jeu, permettant de sélectionner les joueurs parmi une liste obtenue de la base de données. Affiche les options pour commencer la partie ou l'annuler. Utilise Tkinter pour l'interface graphique.
     """
 
     def select_gamers():
+        """
+        Arguments :
+            Aucun, utilisations des variables de config_game().
+        Retourne : Rien.
+        Description : Fonction interne de `config_game` permettant de sélectionner les joueurs pour une nouvelle partie. Vérifie que les noms des joueurs sont différents et non vides, affiche des messages d'erreur si nécessaire, et configure le bouton de démarrage du jeu. Utilise des variables non locales pour accéder aux informations de l'interface graphique Tkinter.
+        """
         nonlocal name_j1_list, name_j2_list, player_names, button_frame, player_ids, pre_game, new_game, annul_button
         value_combo_j1 = name_j1_list.get()
         j1 = value_combo_j1
@@ -41,7 +52,7 @@ def config_game():
             start = ttk.Button(
                 button_frame,
                 text="Commencer",
-                command=lambda: [pre_game.destroy(), wait_game(j1,j2, 1)],
+                command=lambda: [pre_game.destroy(), wait_game(j1, j2, 1)],
             )
             start.grid(row=0, column=0, padx=10, pady=10)
 
@@ -119,12 +130,7 @@ def config_game():
     pre_game.update_idletasks()
     screen_width = pre_game.winfo_screenwidth()
     screen_height = pre_game.winfo_screenheight()
-    x = (screen_width) // 5
-    y = (screen_height) // 5
+    x = screen_width // 5
+    y = screen_height // 5
     pre_game.geometry("+{}+{}".format(x, y))
-    print(type(pre_game))
     pre_game.mainloop()
-
-
-#def game(j_act, grille_adv, grille_j):
-    #return 1

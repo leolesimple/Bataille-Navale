@@ -14,6 +14,13 @@ j2 = ""
 
 
 def init_joueurs(j_p, j_d):
+    """
+    Arguments :
+        j_p : Nom du joueur principal.
+        j_d : Nom du joueur défenseur.
+    Retourne : Rien.
+    Description : Initialise les variables globales j1 et j2 avec les noms des joueurs.
+    """
     global j1, j2
     j1 = j_p
     j2 = j_d
@@ -67,18 +74,23 @@ grille = [
 ]
 
 grille_a_zero = grille
+etape = 0
 
 
-# mode = 1 -> construction
-# mode = 2 -> jeu
-
-def wait_game(j_act, j_wait, mode):
+def wait_game(j_act: str, j_wait: str, mode: int):
+    """
+    Arguments :
+        j_act : Nom du joueur actuel.
+        j_wait : Nom du joueur en attente.
+        mode : Mode de jeu (1 pour construction, 2 pour jeu).
+    Retourne : Rien.
+    Description : Affiche une fenêtre d'attente pour le joueur actuel et prépare le jeu selon le mode.
+    """
     global etape
     if j1 == "" and j2 == "":
         init_joueurs(j_act, j_wait)
     elif etape != 0:
         etape = 0
-    print(j1, j2)
     wait_win = Tk()
     wait_win.title("Ecran d'attente | NSI")
     wait_win.geometry("450x600")
@@ -148,10 +160,15 @@ def wait_game(j_act, j_wait, mode):
     wait_win.mainloop()
 
 
-etape = 0
-
-
-def grid_view(mode, j_act, j_wait):
+def grid_view(mode: int, j_act: str, j_wait: str):
+    """
+    Arguments :
+        mode : Mode de jeu (1 ou 2).
+        j_act : Nom du joueur actuel.
+        j_wait : Nom du joueur en attente.
+    Retourne : Rien.
+    Description : Crée et affiche la vue du jeu en fonction du mode et des joueurs.
+    """
     global j1, j2, etape, button_frame_ag, game_player, title, grille_wait, grille_act, gamer_act
     j_id, j_a_id = "", ""
     game_player = Tk()
@@ -195,7 +212,6 @@ def grid_view(mode, j_act, j_wait):
             bg="#88cffa",
         )
     elif mode == 2:
-        print(str(j_id) + " " + str(j_a_id))
         nb_bateaux_differents = nombre_bateaux(j_id, j_id)
         if nb_bateaux_differents == 0:
             game_player.destroy()
@@ -234,11 +250,6 @@ def grid_view(mode, j_act, j_wait):
     button_frame_ag = Frame(text_label, bg="#88cffb")
     button_frame_ag.grid(column=0, row=2)
 
-    # Grille 1 : position bateau j1
-    # grille 2 : tir j1
-    # grille 3 : position bateaux j2
-    # grille 4 : tirs j2
-
     grille_boat_j1 = grille[0][0]
     grille_boat_j2 = grille[1][0]
     grille_tir_j1 = grille[0][1]
@@ -273,29 +284,32 @@ def grid_view(mode, j_act, j_wait):
     game_player.update_idletasks()
     screen_width = game_player.winfo_screenwidth()
     screen_height = game_player.winfo_screenheight()
-    x = (screen_width) // 5
-    y = (screen_height) // 5
+    x = screen_width // 5
+    y = screen_height // 5
     game_player.geometry("+{}+{}".format(x, y))
 
     game_player.mainloop()
 
 
-# Mode : 1 = Création Bateau (grille unique)
-#        2 = Jeu bateau (grille double)
-#        3 = Affichage de la grille du joueur.
-
 def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_act, j_wait):
+    """
+    Arguments :
+        frame : Liste contenant des éléments de l'interface graphique.
+        mode : Mode de jeu (1 : construction, 2 : jeu ou 3 : affichage).
+        grille_joueur : Grille du joueur actuel.
+        grille_ad : Grille de l'adversaire.
+        j_act : Nom du joueur actuel.
+        j_wait : Nom du joueur en attente.
+    Retourne : Rien.
+    Description : Initialise la grille de jeu en fonction du mode et des joueurs.
+    """
     global etape, long, button_frame_ag, game_player, indice_j_adv
     """
     Initialisation de la grille des bateaux. Grille de 8x8.
     """
 
     if etape >= 5 and mode != 3:
-        # frame_1 = frame[1]
-        # frame_1.destroy()
-
         init_grille(frame, 3, grille_ad, grille_joueur, j_act, j_wait)
-        print(grille_joueur)
     else:
         print(etape)
 
@@ -304,7 +318,9 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
         print(f"Bouton N° R{row}C{col}")
         init_grille(frame, mode, grille_joueur, grille_ad, j_act, j_wait)
         etape += 1
-        print("Etape : " + str(etape))
+
+    indice_j_adv = ""
+    indice_j_act = ""
 
     if j_act == j1:
         j_id = 0
@@ -319,7 +335,6 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
         indice_j_act = 1
 
     if mode == 1:
-        print('Mode 1')
         for i in range(8):
             for j in range(8):
                 if grille_joueur[j][i] is None:
@@ -352,21 +367,18 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     ),
                 )
     elif mode == 2:
-        print("Mode 2" + " Joueur Actuel : " + str(j_act) + "Joueur Attente : " + str(j_wait))
-        # Appel à bateau_touche pour obtenir les informations sur les cases touchées et coulées
         infos_bateaux = bateau_touche(indice_j_adv)
         cases_touchees = infos_bateaux["touche"]
         cases_coulees = infos_bateaux["coule"]
 
-        # Grande Grille
         for k in range(8):
             for g in range(8):
                 if (k, g) in cases_touchees:
-                    bg_color = "#00FF00"  # Case touchée
+                    bg_color = "#00FF00"
                 elif (k, g) in cases_coulees:
-                    bg_color = "#FF0000"  # Case coulée
+                    bg_color = "#FF0000"
                 else:
-                    bg_color = "#AAAAAA"  # Case non cliquée
+                    bg_color = "#AAAAAA"
                 game_grid = Canvas(
                     frame[1],
                     width=80,
@@ -376,7 +388,6 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                 )
                 game_grid.grid(row=k, column=g, padx=2, pady=2)
 
-                # Ajouter les coordonnées de la case
                 coord_text = f"{k}-{g}"
                 game_grid.create_text(
                     40,
@@ -394,11 +405,14 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                                    grille_ad)]
                 )
 
-        # Petite grille
+        infos_bateaux_j = bateau_touche(indice_j_act)
+        cases_perdues = infos_bateaux_j["touche"]
         for s in range(8):
             for w in range(8):
                 if grille_ad[w][s] is None:
                     bg_color = "#0077BE"
+                elif (s, w) in cases_perdues:
+                    bg_color = "#FF0000"
                 else:
                     bg_color = "#808080"
                 sample_grid = Canvas(
@@ -411,7 +425,6 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                 sample_grid.grid(row=s, column=w, padx=2, pady=2)
 
     elif mode == 3:
-        print("Mode : 3")
         for i in range(8):
             for j in range(8):
                 case_value = grille_joueur[j][i]
@@ -438,10 +451,6 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     font=("Parisine", 20),
                     tags="text",
                 )
-                grille_init_boat.bind(
-                    "<Button-1>",
-                    lambda event, row=i, col=j: (print("Clic inactif")),
-                )
         if j_act != j2:
             continue_btn = ttk.Button(
                 button_frame_ag,
@@ -457,22 +466,41 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
         continue_btn.grid(row=0, column=1, padx=0, pady=0)
 
 
-def check_tour(nb_adv, nb_act, col, row, next_j, nv_wait, frames, grille_joueur, grille_ad):
+def check_tour(nb_adv: int, nb_act: int, col: int, row: int, next_j: str, nv_wait: str, frames: list,
+               grille_joueur: list, grille_ad: list):
+    """
+    Arguments :
+        nb_adv : Identifiant numérique du joueur adverse.
+        nb_act : Identifiant numérique du joueur actuel.
+        col : Numéro de la colonne sélectionnée.
+        row : Numéro de la ligne sélectionnée.
+        next_j : Nom du joueur suivant.
+        nv_wait : Nom du joueur en attente.
+        frames : Eléments de l'interface graphique.
+        grille_joueur : Grille du joueur actuel.
+        grille_ad : Grille de l'adversaire.
+    Retourne : Rien.
+    Description : Vérifie le tour et gère les actions selon le tir effectué.
+    """
     joueur_actuel = nb_act
     joueur_adverse = nb_adv
 
-    # Vérifier que le joueur actuel est autorisé à tirer
+    nom_joueur = ""
+
+    if joueur_actuel == 0:
+        nom_joueur = j1
+    else:
+        nom_joueur = j2
+
     if joueur_actuel == joueur_actuel:
         tir = tirer(nb_adv, nb_act, col, row)
-        print("tirer(" + str(nb_adv) + ", " + str(nb_act) + ", " + str(col) + ", " + str(row) + ")")
-        n_boat = grille_ad[col][row]
 
         if not tir:
+            case_touchee((col, row), 2, joueur_adverse)
             messagebox.showinfo(title="Tir coulé",
                                 message="Le tir a échoué, vous n'êtes pas tombé sur une bonne case !")
             game_player.destroy()
             wait_game(nv_wait, next_j, 2)
-            case_touchee((col, row), 2, joueur_adverse)
 
         else:
             messagebox.showinfo(title="Tir touché",
@@ -480,18 +508,25 @@ def check_tour(nb_adv, nb_act, col, row, next_j, nv_wait, frames, grille_joueur,
             case_touchee((col, row), 1,
                          joueur_adverse)
             init_grille(frames, 2, grille_joueur, grille_ad, next_j, nv_wait)
-            pv_bateau = vie_bateau(joueur_adverse, n_boat)
-
-            if pv_bateau == 0:
-                messagebox.showinfo(title="Coulé !", message=f"Le bateau {n_boat} a été coulé !")
+            nb_bateaux_differents = nombre_bateaux(joueur_adverse, joueur_adverse)
+            if nb_bateaux_differents == 0:
+                game_player.destroy()
+                messagebox.showinfo(title="Fin du jeu",
+                                    message="Tous les bateaux du joueur ont été touchés !")
+                end_game(nom_joueur)
+                reset()
+                return
     else:
         messagebox.showerror(title="Erreur !", message="Une erreur dans l'attribution des tirs !")
+        exit()
 
-
-# Léa
 
 def longueur_bateau():
-    """pour savoir la longueur des bateaux"""
+    """
+    Arguments : Aucun.
+    Retourne : Liste des longueurs des bateaux.
+    Description : Génère aléatoirement les longueurs des bateaux pour un joueur.
+    """
     L_j0 = []
     for i in range(6):
         n = randint(1, 3)
@@ -499,45 +534,33 @@ def longueur_bateau():
     return L_j0
 
 
-long = [1, 2, 1, 2, 1, 2]  # longueur_bateau()
+long = longueur_bateau()
 
 
-def changement_de_joueur(joueur_actuel, joueur_prochain):
-    # Intégrée dans le code définitif.
-    joueur_pro, joueur_act = joueur_actuel, joueur_prochain
-    return joueur_act, joueur_pro
-
-
-# def tirer(joueur_actuel, joueur_adverse, num_col, li):
-"""Retourne si le tir a touche ou non
-    Prend en parametre la grille du joueur adverse,
-    le num de la colonne et de la ligne ou il tire
-    il retourne True si le tir a touche et false sinon"""
-"""     if (
-        grille[joueur_adverse][0][num_col][li] != False
-        and grille[joueur_adverse][0][num_col][li] != None
-    ):
-        grille[joueur_actuel][1][num_col][li] = True
-        return True  # en gros c'est touche
-    return False  # en gros t'es nul t'as rate """
-
-
-def tirer(joueur_actuel, joueur_adverse, num_col, li):
-    """Retourne si le tir a touche ou non
-    Prend en parametre la grille du joueur adverse,
-    le num de la colonne et de la ligne ou il tire
-    il retourne True si le tir a touche et false sinon"""
+def tirer(joueur_actuel: int, joueur_adverse: int, num_col: int, li: int):
+    """
+    Arguments :
+        joueur_actuel : Identifiant du joueur actuel.
+        joueur_adverse : Identifiant du joueur adverse.
+        num_col : Numéro de la colonne ciblée.
+        li : Numéro de la ligne ciblée.
+    Retourne : Booléen indiquant si le tir a touché un bateau.
+    Description : Effectue un tir et détermine s'il a touché un bateau.
+    """
     if grille[joueur_actuel][1][num_col][li] != False and grille[joueur_actuel][0][num_col][li] is not None:
         grille[joueur_actuel][0][num_col][li] = False
-        # grille[joueur_actuel][1][num_col][li] = True
         return True
-    # grille[joueur_actuel][1][num_col][li] = False
     return False
 
 
-def vie_bateau(joueur_actuel, numero):
-    """renvoie la vie d'un bateau specifie par son numero entre en parametre
-    Prend en parametre le joueur actuel et renvoie les pv du bateau specifie"""
+def vie_bateau(joueur_actuel: int, numero: int):
+    """
+    Arguments :
+        joueur_actuel : Identifiant du joueur actuel.
+        numero : Numéro du bateau.
+    Retourne : Nombre de points de vie restants du bateau spécifié.
+    Description : Calcule la vie restante d'un bateau spécifié.
+    """
     vie_bateau = 0
     for i in grille[joueur_actuel]:
         if i == numero:
@@ -546,50 +569,26 @@ def vie_bateau(joueur_actuel, numero):
 
 
 def reset():
+    """
+    Arguments : Aucun.
+    Retourne : Rien.
+    Description : Réinitialise la grille de jeu à son état initial.
+    """
     global grille
-    """reinitialise la grille a 0"""
     grille = grille_a_zero
 
 
-def commencer_tour(joueur_actuel, joueur_prochain, grille):
-    # Intégré dans le wait_game
-    """Renvoie une fonction avec comme arguments :
-    - le mode
-    - la grille de l'adversaire
-    - la grille du joueur actuel avec ses bateaux
-    - le joueur qui joue
-    - le joueur en attente"""
-    return
-
-
-def deroulement_tour(joueur_actuel, joueur_prochain):
-    # Déplacé dans les fonctions wait_game(), etc.
-
-    """deroulement d'un tour"""
-    if nombre_bateaux(joueur_actuel, joueur_prochain) == 0:
-        return 0  # fin jeu
-    # ecran noir avec bouton pourconfirmer qu'il change de joueur (Léo -> Interface)
-    # apparition de la grille du joueur et celle dans lequel il tire (Léo -> Interface)
-    # clique sur une case de la grille dans lequel il tire (celle ci sera dans une variable qui sera utilise pour la fonction tirer) (Léo -> Interface)
-    tirer(joueur_actuel, joueur_prochain, """case cliquee""")
-    if nombre_bateaux(joueur_prochain, joueur_actuel) == 0:
-        return 0  # fin jeu
-    # afficher pendant un certain temps l'ecran (Léo -> Interface)
-    # mettre ecran noir (Léo -> Interface)
-    deroulement_tour(changement_de_joueur(joueur_actuel, joueur_prochain))
-
-
-# Timothée
-
-
-def creation_bateau(num_joueur, num_col, longueur, li, num):
-    """renvoie la grille avec les numeros des bateaux, et si ya rien bah cest none
-    Prend en parametre :
-    - num du joueur (0 ou 1) qui definit quelle liste de liste prendre
-    - num colonne pour la 1ere sousliste definissant les colonnes
-    - li pour la 2e sous liste definissant les lignes
-    - longueur qui sera la longueur du bateau
-    - num qui correspont a l'etape et au numero du bateau"""
+def creation_bateau(num_joueur: int, num_col: int, longueur: int, li: int, num: int):
+    """
+    Arguments :
+        num_joueur : Identifiant du joueur.
+        num_col : Numéro de la colonne de départ.
+        longueur : Longueur du bateau.
+        li : Numéro de la ligne de départ.
+        num : Numéro d'étape / identifiant du bateau.
+    Retourne : Rien.
+    Description : Place un bateau sur la grille du joueur.
+    """
     if num % 2 == 0:
         if 7 - num_col >= longueur:
             for i in range(longueur):
@@ -610,38 +609,44 @@ def creation_bateau(num_joueur, num_col, longueur, li, num):
                 li -= 1
 
 
-def nombre_bateaux(joueur_actuel, joueur_adverse):
-    """Compte le nombre de bateaux non coulés du joueur actuel en utilisant la grille de position
-    et les informations sur les tirs du joueur adverse."""
+def nombre_bateaux(joueur_actuel: int, joueur_adverse: int):
+    """
+    Arguments :
+        joueur_actuel : Identifiant du joueur actuel.
+        joueur_adverse : Identifiant du joueur adverse.
+    Retourne : Nombre de bateaux non coulés du joueur actuel.
+    Description : Compte les bateaux non coulés du joueur actuel en fonction des tirs de l'adversaire.
+    """
 
-    # Obtenez la grille de position des bateaux du joueur actuel
     grille_position = grille[joueur_actuel][0]
 
-    # Initialisez une liste vide pour stocker les numéros de bateaux
     numeros_bateaux = []
 
-    # Parcourez la grille de position et ajoutez les numéros de bateaux à la liste
     for ligne in grille_position:
         for case in ligne:
             if case is not None and isinstance(case, int) and case not in numeros_bateaux:
                 numeros_bateaux.append(case)
 
-    # Obtenez les informations sur les tirs du joueur adverse
     infos_tirs = bateau_touche(joueur_adverse)
 
-    # Parcourez les numéros de bateaux et vérifiez s'ils ont toutes leurs cases touchées
-    bateaux_non_coulés = 0
+    bateaux_non_coules = 0
     for numero in numeros_bateaux:
         toutes_cases_touchees = all(
             coordonnees in infos_tirs["touche"] for coordonnees in cases_du_meme_bateau(numero, joueur_actuel))
         if not toutes_cases_touchees:
-            bateaux_non_coulés += 1
+            bateaux_non_coules += 1
 
-    return bateaux_non_coulés - 1
+    return bateaux_non_coules - 1
 
 
-def cases_du_meme_bateau(numero_bateau, joueur_actuel):
-    """Retourne les coordonnées (ligne, colonne) de toutes les cases du même bateau."""
+def cases_du_meme_bateau(numero_bateau: int, joueur_actuel: int):
+    """
+    Arguments :
+        numero_bateau : Numéro du bateau.
+        joueur_actuel : Identifiant du joueur actuel.
+    Retourne : Liste de coordonnées des cases occupées par le bateau.
+    Description : Retourne les coordonnées de toutes les cases occupées par un bateau spécifié.
+    """
     coordonnees = []
     for i in range(8):
         for j in range(8):
@@ -656,7 +661,15 @@ bateaux_touche = {
 }
 
 
-def case_touchee(coo: tuple, etat, joueur):
+def case_touchee(coo: tuple, etat: int, joueur: int):
+    """
+    Arguments :
+        coo : Coordonnées de la case.
+        etat : État de la case (touche ou coule).
+        joueur : Identifiant du joueur.
+    Retourne : Rien.
+    Description : Met à jour l'état d'une case spécifiée comme touchée ou coulée.
+    """
     global bateaux_touche
     if joueur not in bateaux_touche:
         bateaux_touche[joueur] = {"touche": [], "coule": []}
@@ -664,11 +677,15 @@ def case_touchee(coo: tuple, etat, joueur):
     m_coo = (coo[1], coo[0])
     if etat == 1:
         bateaux_touche[joueur]["touche"].append(m_coo)
-    elif etat == 2:
+    else:
         bateaux_touche[joueur]["coule"].append(m_coo)
 
 
-def bateau_touche(nb_joueur):
-    print(nb_joueur)
-    print(bateaux_touche[nb_joueur])
+def bateau_touche(nb_joueur: int):
+    """
+    Arguments :
+        nb_joueur : Identifiant du joueur.
+    Retourne : Dictionnaire des états des bateaux (touchés ou coulés).
+    Description : Renvoie l'état actuel des bateaux d'un joueur spécifié.
+    """
     return bateaux_touche[nb_joueur]

@@ -2,16 +2,16 @@ from pre_game import *
 import tkinter as tk
 from tkinter import ttk
 from leaderboard import *
-import faulthandler
-
-faulthandler.enable()
 
 
-def menu(type="color"):
+def menu(mode="color"):
+    """
+    Arguments :
+        type: (Optionnel) Détermine le type de fond d'écran pour la fenêtre, avec "color" comme valeur par défaut.
+    Retourne : Rien.
+    Description : Crée une fenêtre d'accueil pour le jeu de la Bataille Navale. Configure le titre, le fond d'écran (selon le type spécifié), les boutons pour démarrer une nouvelle partie, afficher le tableau des scores, et affiche les crédits. Utilise Tkinter pour l'interface graphique.
+    """
     global menu_root
-    """
-    Fenêtre d'accueil du jeu de la Bataille Navale.
-    """
     menu_root = Tk()
     menu_root.title("Bataille Navale | NSI")
 
@@ -23,7 +23,7 @@ def menu(type="color"):
         menu_root.geometry("1280x854")
     menu_root.resizable(False, False)
 
-    if type == "image":
+    if mode == "image":
         bg = PhotoImage(file="img/background-sea-water.png")
         background_label = Label(menu_root, image=bg)
     else:
@@ -47,7 +47,7 @@ def menu(type="color"):
     new_game = ttk.Button(
         button_frame,
         text="Nouvelle partie",
-        command=lambda: [config_game()],  # menu_root.destroy(),
+        command=lambda: [config_game()],
     )
 
     new_game.grid(row=0, column=0, padx=10, pady=10)
