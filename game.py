@@ -433,8 +433,8 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
 
                 grille_init_boat = Canvas(
                     frame[1],
-                    width=100,
-                    height=80,
+                    width=60,
+                    height=60,
                     background=bg_color,
                     highlightthickness=0,
                 )
