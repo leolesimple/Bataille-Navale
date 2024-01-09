@@ -21,10 +21,10 @@ def end_game(winner: str):
 
     end_win.configure(bg="#88cffb")
 
-    label = Label(end_win, text="Fin du jeu", font=("Parisine", 40), bg="#88cffb", fg="black")
+    label = Label(end_win, text="Fin du jeu", font=("Parisine", 40, "normal"), bg="#88cffb", fg="black")
     label.pack(padx=20, pady=20)
 
-    label = Label(end_win, text="Gagnant : " + str(winner), font=("Parisine", 20), bg="#88cffb", fg="black")
+    label = Label(end_win, text="Gagnant : " + str(winner), font=("Parisine", 20, "normal"), bg="#88cffb", fg="black")
     label.pack(padx=20, pady=20)
 
     score_conn = sqlite3.connect('general.db')
@@ -35,7 +35,7 @@ def end_game(winner: str):
     score_conn.close()
 
     label = Label(end_win, text="Votre score a augmenté de 10 points (10 points = 1 partie gagnée)",
-                  font=("Parisine", 15), bg="#88cffb", fg="black")
+                  font=("Parisine", 15, "normal"), bg="#88cffb", fg="black")
     label.pack(padx=20, pady=20)
 
     button_frame = Frame(end_win, bg="#88cffa")

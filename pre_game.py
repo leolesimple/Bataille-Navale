@@ -74,7 +74,7 @@ def config_game():
         pre_game,
         text="Nouvelle partie",
         fg="black",
-        font=("Parisine", 45),
+        font=("Parisine", 45, "normal"),
         bg="#88cffa",
     )
     title.pack(pady=(50, 0))
@@ -82,7 +82,7 @@ def config_game():
         pre_game,
         text="Si votre nom/pseudo n'apparaît pas dans les listes, \n accédez au leaderboard pour créer votre joueur.",
         fg="black",
-        font=("Parisine", 20),
+        font=("Parisine", 20, "normal"),
         bg="#88cffa",
         padx=0,
         pady=0,

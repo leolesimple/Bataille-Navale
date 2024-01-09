@@ -115,7 +115,7 @@ def wait_game(j_act: str, j_wait: str, mode: int):
         wait_win,
         text=mode_name,
         fg="black",
-        font=("Parisine", 45),
+        font=("Parisine", 45, "normal"),
         bg="#88cffa",
     )
     title.pack(pady=(10, 0))
@@ -124,7 +124,7 @@ def wait_game(j_act: str, j_wait: str, mode: int):
         wait_win,
         text=content_label[0],
         fg="black",
-        font=("Parisine", 20),
+        font=("Parisine", 20, "normal"),
         bg="#88cffa",
     )
     expl.pack(pady=(0, 50))
@@ -133,7 +133,7 @@ def wait_game(j_act: str, j_wait: str, mode: int):
         wait_win,
         text="Nom du joueur : " + j_act,
         fg="black",
-        font=("Parisine", 16),
+        font=("Parisine", 16, "normal"),
         bg="#88cffa",
     )
     j_name.pack(pady=(0, 15))
@@ -199,7 +199,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
             text_label,
             text="Placez vos bateaux",
             fg="black",
-            font=("Parisine", 45),
+            font=("Parisine", 45, "normal"),
             bg="#88cffa",
         )
 
@@ -207,7 +207,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
             text_label,
             text=j_act + " | Bateau n°" + str(long),
             fg="black",
-            font=("Parisine", 15),
+            font=("Parisine", 15, "normal"),
             bg="#88cffa",
         )
     elif mode == 2:
@@ -221,7 +221,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
             text_label,
             text="Jouez",
             fg="black",
-            font=("Parisine", 45),
+            font=("Parisine", 45, "normal"),
             bg="#88cffa",
         )
 
@@ -229,7 +229,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
             text_label,
             text="Qui joue ? : " + j_act,
             fg="black",
-            font=("Parisine", 15),
+            font=("Parisine", 15, "normal"),
             bg="#88cffa",
         )
 
@@ -237,7 +237,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
             text_label,
             text="Bateaux restants : " + str(nb_bateaux_differents),
             fg="black",
-            font=("Parisine", 15),
+            font=("Parisine", 15, "normal"),
             bg="#88cffa",
         )
 
@@ -355,7 +355,7 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     20,
                     text=text_case,
                     fill="black",
-                    font=("Parisine", 20),
+                    font=("Parisine", 20, "normal"),
                     tags="text",
                 )
                 grille_init_boat.bind(
@@ -393,7 +393,7 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     40,
                     text=coord_text,
                     fill="black",
-                    font=("Arial", 12),
+                    font=("Parisine", 12, "normal"),
                     tags="text",
                 )
 
@@ -447,7 +447,7 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     20,
                     text=text_case,
                     fill="black",
-                    font=("Parisine", 20),
+                    font=("Parisine", 20, "normal"),
                     tags="text",
                 )
         if j_act != j2:

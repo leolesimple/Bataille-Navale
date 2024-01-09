@@ -32,7 +32,7 @@ def leaderboard():
     label1.place(x=0, y=0)
 
     label2 = Label(
-        root, text="Leaderboard", fg="black", bg="#88cffa", font=("Parisine", 70)
+        root, text="Leaderboard", fg="black", bg="#88cffa", font=("Parisine", 70, "normal")
     )
     label2.pack(pady=50)
 
