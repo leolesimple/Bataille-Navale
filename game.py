@@ -93,7 +93,7 @@ def wait_game(j_act: str, j_wait: str, mode: int):
         etape = 0
     wait_win = Tk()
     wait_win.title("Ecran d'attente | NSI")
-    wait_win.geometry("450x600")
+    wait_win.geometry("500x600")
 
     label1 = Label(wait_win, text=j_act, bg="#88cffa", width=455, height=600)
     label1.place(x=0, y=0)
@@ -175,10 +175,7 @@ def grid_view(mode: int, j_act: str, j_wait: str):
 
     screen_height = game_player.winfo_screenheight()
 
-    if screen_height < 854:
-        game_player.geometry("1080x724")
-    else:
-        game_player.geometry("1280x854")
+    game_player.geometry("970x710")
     game_player.resizable(False, False)
 
     background_label = Label(game_player, bg="#88cffa")
@@ -344,8 +341,8 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     text_case = "B " + str(grille_joueur[j][i])
                 grille_init_boat = Canvas(
                     frame[1],
-                    width=100,
-                    height=80,
+                    width=60,
+                    height=60,
                     background=bg_color,
                     highlightthickness=0,
                 )
@@ -355,7 +352,7 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     20,
                     text=text_case,
                     fill="black",
-                    font=("Parisine", 20, "normal"),
+                    font=("Parisine", 15, "normal"),
                     tags="text",
                 )
                 grille_init_boat.bind(
@@ -380,8 +377,8 @@ def init_grille(frame: list, mode: int, grille_joueur: list, grille_ad: list, j_
                     bg_color = "#AAAAAA"
                 game_grid = Canvas(
                     frame[1],
-                    width=80,
-                    height=80,
+                    width=60,
+                    height=60,
                     background=bg_color,
                     highlightthickness=0,
                 )

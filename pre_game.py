@@ -60,10 +60,7 @@ def config_game():
     pre_game.title("Configuration du jeu | NSI")
     screen_height = pre_game.winfo_screenheight()
 
-    if screen_height < 854:
-        pre_game.geometry("1080x724")
-    else:
-        pre_game.geometry("1280x854")
+    pre_game.geometry("970x710")
 
     pre_game.resizable(False, False)
 

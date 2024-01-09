@@ -14,10 +14,7 @@ def end_game(winner: str):
     end_win.title("Fin du jeu")
     screen_height = end_win.winfo_screenheight()
 
-    if screen_height < 854:
-        end_win.geometry("1080x724")
-    else:
-        end_win.geometry("1280x854")
+    end_win.geometry("970x710")
 
     end_win.configure(bg="#88cffb")
 

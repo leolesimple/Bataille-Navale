@@ -15,12 +15,7 @@ def menu(mode="color"):
     menu_root = Tk()
     menu_root.title("Bataille Navale | NSI")
 
-    screen_height = menu_root.winfo_screenheight()
-
-    if screen_height < 854:
-        menu_root.geometry("1080x724")
-    else:
-        menu_root.geometry("1280x854")
+    menu_root.geometry("970x710")
     menu_root.resizable(False, False)
 
     if mode == "image":
