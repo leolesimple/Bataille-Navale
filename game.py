@@ -103,7 +103,7 @@ def wait_game(j_act: str, j_wait: str, mode: int):
         content_label = "Commencer par poser vos bateaux sur \nla grille, les longueurs et orientations \ndes bateaux  sont désignées par \nle jeu.",
     elif mode == 2:
         mode_name = "Jouer"
-        content_label = "C'est à vous de jouer, cliquer sur \nune case pour tirer les bateaux de \n votre adversaire, votre grille de bateau \n est affichée sur le côté.",
+        content_label = "C'est à vous de jouer, cliquer sur \nune case pour tirer les bateaux de \n votre adversaire, votre grille de \nbateaux est affichée sur le côté.",
 
     else:
         print(
