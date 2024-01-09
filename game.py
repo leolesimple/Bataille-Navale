@@ -94,14 +94,13 @@ def wait_game(j_act: str, j_wait: str, mode: int):
     wait_win = Tk()
     wait_win.title("Ecran d'attente | NSI")
     wait_win.geometry("450x600")
-    wait_win.resizable(False, False)
 
     label1 = Label(wait_win, text=j_act, bg="#88cffa", width=455, height=600)
     label1.place(x=0, y=0)
 
     if mode == 1:
         mode_name = "Placer"
-        content_label = "Commencer par poser vos bateaux sur la grille, \n les longueurs et orientations des bateaux \n sont désignées pas le jeu.",
+        content_label = "Commencer par poser vos bateaux sur la grille, \n les longueurs et orientations des bateaux \n sont désignées par le jeu.",
     elif mode == 2:
         mode_name = "Jouer"
         content_label = "C'est à vous de jouer, cliquer sur une case \n pour tirer les bateaux de votre adversaire, \n votre grille de bateau est affichée sur le côté.",
@@ -151,11 +150,11 @@ def wait_game(j_act: str, j_wait: str, mode: int):
     new_game.grid(row=0, column=0, padx=10, pady=10)
 
     wait_win.update_idletasks()
-    screen_width = wait_win.winfo_screenwidth()
-    screen_height = wait_win.winfo_screenheight()
-    x = screen_width // 5
-    y = screen_height // 5
-    wait_win.geometry("+{}+{}".format(x, y))
+    # screen_width = wait_win.winfo_screenwidth()
+    # screen_height = wait_win.winfo_screenheight()
+    # x = screen_width // 5
+    # y = screen_height // 5
+    # wait_win.geometry("+{}+{}".format(x, y))
 
     wait_win.mainloop()
 
@@ -282,11 +281,11 @@ def grid_view(mode: int, j_act: str, j_wait: str):
     init_grille([game_player, big_grid, small_grid], mode, grille_act, grille_wait, j_act, j_wait)
 
     game_player.update_idletasks()
-    screen_width = game_player.winfo_screenwidth()
-    screen_height = game_player.winfo_screenheight()
-    x = screen_width // 5
-    y = screen_height // 5
-    game_player.geometry("+{}+{}".format(x, y))
+    # screen_width = game_player.winfo_screenwidth()
+    # screen_height = game_player.winfo_screenheight()
+    # x = screen_width // 5
+    # y = screen_height // 5
+    # game_player.geometry("+{}+{}".format(x, y))
 
     game_player.mainloop()
 

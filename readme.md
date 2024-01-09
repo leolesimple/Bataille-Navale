@@ -16,6 +16,9 @@ est disponibles dans le fichier LICENSE.
 - Python : Une version récente de Python (3.x) doit être installée. Le projet a été développé avec Python 3.8, mais il
   devrait être compatible avec les versions ultérieures.
 
+- Police :
+  - Parisine (disponible dans le dossier ```font```)
+
 - Bibliothèques Python :
 
     - Tkinter : Pour l'interface graphique. Tkinter est généralement inclus dans les installations standard de Python.

@@ -128,9 +128,9 @@ def config_game():
     annul_button.grid(row=0, column=1, padx=10, pady=10)
 
     pre_game.update_idletasks()
-    screen_width = pre_game.winfo_screenwidth()
-    screen_height = pre_game.winfo_screenheight()
-    x = screen_width // 5
-    y = screen_height // 5
-    pre_game.geometry("+{}+{}".format(x, y))
+    # screen_width = pre_game.winfo_screenwidth()
+    # screen_height = pre_game.winfo_screenheight()
+    # x = screen_width // 5
+    # y = screen_height // 5
+    # pre_game.geometry("+{}+{}".format(x, y))
     pre_game.mainloop()

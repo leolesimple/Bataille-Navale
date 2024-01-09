@@ -1,23 +1,5 @@
-import pyglet
 from leaderboard import *
 import sqlite3
-
-
-def jouer_son():
-    """
-    !!! Ne fonctionne pas pour le moment !!!
-    Arguments : Aucun.
-    Retourne : Rien.
-    Description : Joue un fichier sonore 'ambience.wav' en utilisant la bibliothèque pyglet. Crée un lecteur de média, charge la source sonore et la joue.
-    """
-    player = pyglet.media.Player()
-
-    son = "sounds/ambience.wav"
-    src = pyglet.media.StaticSource(pyglet.media.load(son))
-
-    player.queue(src)
-
-    player.play()
 
 
 def end_game(winner: str):

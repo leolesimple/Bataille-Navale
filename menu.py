@@ -72,9 +72,9 @@ def menu(mode="color"):
     nam.pack(pady=(200, 0))
 
     menu_root.update_idletasks()
-    screen_width = menu_root.winfo_screenwidth()
-    screen_height = menu_root.winfo_screenheight()
-    x = (screen_width) // 5
-    y = (screen_height) // 5
-    menu_root.geometry("+{}+{}".format(x, y))
+    # screen_width = menu_root.winfo_screenwidth()
+    # screen_height = menu_root.winfo_screenheight()
+    # x = (screen_width) // 5
+    # y = (screen_height) // 5
+    # menu_root.geometry("+{}+{}".format(x, y))
     menu_root.mainloop()

@@ -83,11 +83,11 @@ def leaderboard():
     show_users()
 
     root.update_idletasks()
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    x = (screen_width) // 5
-    y = (screen_height) // 5
-    root.geometry("+{}+{}".format(x, y))
+    # screen_width = root.winfo_screenwidth()
+    # screen_height = root.winfo_screenheight()
+    # x = (screen_width) // 5
+    # y = (screen_height) // 5
+    # root.geometry("+{}+{}".format(x, y))
 
     root.mainloop()
 
