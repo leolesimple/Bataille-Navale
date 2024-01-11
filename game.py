@@ -525,7 +525,7 @@ def longueur_bateau():
     """
     L_j0 = []
     for i in range(6):
-        n = randint(1, 3)
+        n = randint(2, 4)
         L_j0.append(n)
     return L_j0
 
